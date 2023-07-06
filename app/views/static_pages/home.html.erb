@@ -1,2 +1,10 @@
-<h1>StaticPages#home</h1>
-<p>Find me in app/views/static_pages/home.html.erb</p>
+<!--以下の内容はapplication.erbのbodyタグの中に代入される-->
+<!--provideを用いてtitleの重複を防ぐ-->
+<% provide(:title, "Home") %>
+<h1>サンプルApp！！</h1>
+<p>
+  This is the home page for the
+  <a href="https://railstutorial.jp/">Ruby on Rails Tutorial</a>
+  sample application.
+</p>
+
