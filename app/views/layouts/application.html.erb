@@ -1,17 +1,18 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <!--カスタムヘルパーのfull_titleを呼び出す-->
     <title><%= full_title(yield(:title)) %></title>
-    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta charset="utf-8">
-    <%= csrf_meta_tags %>
-    <%= csp_meta_tag %>
-
-    <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
+    <!--head にパーシャルを挿入-->
+    <%= render 'layouts/rails_default' %>
   </head>
-
   <body>
-    <%= yield %>
+    <!--headerにパーシャルを挿入-->
+    <%= render 'layouts/header' %>
+    <div class="container">
+      <%= yield %>
+      <%= render 'layouts/footer' %>
+    </div>
   </body>
 </html>
