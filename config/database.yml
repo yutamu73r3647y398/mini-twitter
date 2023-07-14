@@ -6,6 +6,8 @@
 #
 default: &default
   adapter: sqlite3
+  # render デプロイのためにpassを追加
+  password: IwNPaPnhrbhyMHLeWUlq9zDnz39BpTzZ
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
   timeout: 5000
 
