@@ -1,14 +1,17 @@
 default: &default
   adapter: sqlite3
-  # render デプロイのためにpassを追加
-  password: IwNPaPnhrbhyMHLeWUlq9zDnz39BpTzZ
+
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
   timeout: 5000
-  # usernameを追加
-  username: sample_app_production_9y97_user
 
 development:
   <<: *default
+    # usernameを追加
+  username: root
+    # render デプロイのためにpassを追加
+  password: IwNPaPnhrbhyMHLeWUlq9zDnz39BpTzZ
+    # hostを追加
+  host: localhost
   database: db/development.sqlite3
 
 test:
