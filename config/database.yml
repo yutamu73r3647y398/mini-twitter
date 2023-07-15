@@ -1,23 +1,46 @@
-default: &default
-  adapter: sqlite3
+# default: &default
+#   adapter: sqlite3
 
-  pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
-  timeout: 5000
+#   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
+#   timeout: 5000
 
-development:
-  <<: *default
-    # usernameを追加
-  username: root
-    # render デプロイのためにpassを追加
-  password: IwNPaPnhrbhyMHLeWUlq9zDnz39BpTzZ
-    # hostを追加
-  host: localhost
-  database: db/development.sqlite3
+# development:
+#   <<: *default
+#     # usernameを追加
+#   username: root
+#     # render デプロイのためにpassを追加
+#   password: IwNPaPnhrbhyMHLeWUlq9zDnz39BpTzZ
+#     # hostを追加
+#   host: localhost
+#   database: db/development.sqlite3
 
-test:
-  <<: *default
-  database: db/test.sqlite3
+# test:
+#   <<: *default
+#   database: db/test.sqlite3
 
-production:
-  <<: *default
-  database: db/production.sqlite3
+# production:
+#   <<: *default
+#   database: db/production.sqlite3
+
+databases:
+  - name: Sample App db
+    databaseName: sample_app_production_9y97
+    user: sample_app
+    region: Oregon
+
+services:
+  - type: web
+    name: sample_app
+    env: ruby
+    region: Oregon
+    plan: free
+    buildCommand: "./bin/render-build.sh"
+    startCommand: "bundle exec puma -C config/puma.rb"
+    envVars:
+      - key: postgres://sample_app_production_9y97_user:IwNPaPnhrbhyMHLeWUlq9zDnz39BpTzZ@dpg-cigm5a5ph6erq6kn2i50-a/sample_app_production_9y97
+        fromDatabase:
+          name: Sample App db
+          property: connectionString
+      - key: d9b0acefffae5ab8ad44e39e84f85948
+        sync: false
+
