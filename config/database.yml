@@ -24,7 +24,8 @@ production:
   <<: *default
   adapter: postgresql
   encoding: unicode
-  url: <%= ENV['DATABASE_URL'] %>
+  # DBのURLを変更してみる。元々'DATABASE_URL'
+  url: <%= ENV['postgres://sample_app_production_9y97_user:IwNPaPnhrbhyMHLeWUlq9zDnz39BpTzZ@dpg-cigm5a5ph6erq6kn2i50-a/sample_app_production_9y97'] %>
 
 # default: &default
 #   adapter: sqlite3
