@@ -14,5 +14,10 @@ class ActiveSupport::TestCase
   # test環境でもApplicationヘルパーを使えるようにする
   include ApplicationHelper
 
-  # （すべてのテストで使うその他のヘルパーメソッドは省略）
+  # テストユーザーがログイン中の場合にtrueを返す
+  # ヘルパーメソッド名がテストヘルパーとSessionヘルパーで同じにならないようにするため、二重否定の形にしておく
+  def is_logged_in?
+    !session[:user_id].nil?
+  end
+  
 end

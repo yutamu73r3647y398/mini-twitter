@@ -14,6 +14,9 @@ class UsersController < ApplicationController
     # User.new の引数にStrong Parametersを使う(user_paramsは下記に定義)
     @user = User.new(user_params)
     if @user.save
+      # セキュリティ対策のためログイン前にsessionのリセット
+      reset_session
+      log_in @user
       flash[:success] = "Welcome to the Sample App!"
       # 保存が成功した場合にuser ページに遷移させる（redirect_to user_url(@user)と同等）
       redirect_to @user

@@ -104,6 +104,24 @@ footer {
     }
   }
 }
+// フッターのCSSを更新する
+@media (max-width: 800px) {
+  footer {
+    small {
+      display: block;
+      float: none;
+      margin-bottom: 1em;
+    }
+    ul {
+      float: none;
+      padding: 0;
+      li {
+        float: none;
+        margin-left: 0;
+      }
+    }
+  }
+}
 
  
 /* 開発環境へのdebug出力のCSS調整 */
@@ -178,4 +196,9 @@ input {
   .form-control {
     color: $state-danger-text;
   }
+}
+
+/* Dropdown menuを有効にする */
+.dropdown-menu.active {
+  display: block;
 }
