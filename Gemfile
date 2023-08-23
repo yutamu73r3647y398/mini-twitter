@@ -4,6 +4,11 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 gem "rails",           "7.0.4"
 # ハッシュ関数bcryot ,セキュリティ対策
 gem "bcrypt",          "3.1.18"
+# Faker gem サンプルユーザー作成
+gem "faker",           "2.21.0"
+# will_paginate ページネーション
+gem "will_paginate",           "3.3.1"
+gem "bootstrap-will_paginate", "1.0.0"
 # bootstrap
 gem "bootstrap-sass",  "3.4.1"
 gem "sassc-rails",     "2.1.2"

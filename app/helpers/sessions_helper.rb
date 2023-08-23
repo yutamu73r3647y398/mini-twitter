@@ -4,6 +4,8 @@ module SessionsHelper
   # sessionメソッドはRailsにデフォルト搭載されているメソッド
   def log_in(user)
     session[:user_id] = user.id
+    # セッションリプレイ攻撃から保護する
+    session[:session_token] = user.session_token
   end
   
   # 永続セッションのためにユーザーをDBに記憶する
@@ -13,21 +15,25 @@ module SessionsHelper
     cookies.permanent[:remember_token] = user.remember_token
   end
   
-  # 記憶トークンcookieに対応するユーザーを返す
+ # 記憶トークンのcookieに対応するユーザーを返す
   def current_user
-    # user_id と sesssion[:usser_id]の比較ではなく代入であることに注意
     if (user_id = session[:user_id])
-      # メモ化（memoization）
-      @current_user ||= User.find_by(id: user_id)
-      # 比較ではなく代入
+      user = User.find_by(id: user_id)
+      if user && session[:session_token] == user.session_token
+        @current_user = user
+      end
     elsif (user_id = cookies.encrypted[:user_id])
-      # raise  #テストがパスすれば、この部分のテストがされていないことが分かる
       user = User.find_by(id: user_id)
       if user && user.authenticated?(cookies[:remember_token])
         log_in user
         @current_user = user
       end
     end
+  end
+
+  # 渡されたユーザーがカレントユーザーであればtrueを返す
+  def current_user?(user)
+    user && user == current_user
   end
 
   # ユーザーがログインしていればtrue、その他ならfalseを返す
@@ -47,6 +53,11 @@ module SessionsHelper
     forget(current_user)
     reset_session
     @current_user = nil #安全のため
+  end
+  
+  # アクセスしようとしたURLを保存する
+  def store_location
+    session[:forwarding_url] = request.original_url if request.get?
   end
 
 end

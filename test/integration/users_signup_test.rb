@@ -8,10 +8,10 @@ class UsersSignupTest < ActionDispatch::IntegrationTest
     get signup_path
     # assert_no_differenceでuser追加前と追加後のユーザー数の差異を判断
     assert_no_difference 'User.count' do
-      post users_path, params: { user: { name:  "",
-                                         email: "user@invalid",
-                                         password:              "foo",
-                                         password_confirmation: "bar" } }
+    post users_path, params: { user: { name:  "",
+                                       email: "user@invalid",
+                                       password:              "foo",
+                                       password_confirmation: "bar" } }
     end
     assert_response :unprocessable_entity
     assert_template 'users/new'

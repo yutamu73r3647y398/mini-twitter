@@ -11,4 +11,5 @@ Rails.application.routes.draw do
   delete "/logout", to: "sessions#destroy"
   # userID = 1...に対するルーティング
   resources :users
+  # patch "/edit"   , to: "edit#patch"
 end
