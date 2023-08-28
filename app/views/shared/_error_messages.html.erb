@@ -1,14 +1,14 @@
 <!--複数のビューに使われるパーシャルはapp/views/sharedに置く慣習がある-->
 <!--users/new.htmlのフォーム送信時にエラーメッセージを表示するためのパーシャル-->
 
-<% if @user.errors.any? %>
+<% if object.errors.any? %>
 <!--any?メソッド empty?メソッドの逆の意味-->
   <div id = "error_explanation">
     <div class = "alert alert-danger">
-      The form contains <%= pluralize(@user.errors.count, "error") %>.
+      The form contains <%= pluralize(object.errors.count, "error") %>.
     </div>
     <ul>
-      <% @user.errors.full_messages.each do |msg| %>
+      <% object.errors.full_messages.each do |msg| %>
         <li><%= msg %></li>
       <% end %>
     </ul>

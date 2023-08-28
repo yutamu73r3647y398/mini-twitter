@@ -10,8 +10,8 @@ class UsersController < ApplicationController
   
   def show
     @user = User.find_by(params[:id])
-    # # debuggerメソッドを差し込む 7章
-    # debugger
+    # micropostとの関連付け及び、pagenationの設定
+    @microposts = @user.microposts.paginate(page: params[:page])
   end
   
   def new
@@ -64,15 +64,6 @@ class UsersController < ApplicationController
     end
 
     # beforeフィルタ
-
-    # ログイン済みユーザーかどうか確認
-    def logged_in_user
-      unless logged_in?
-        store_location
-        flash[:danger] = "Please log in."
-        redirect_to login_url, status: :see_other
-      end
-    end
 
     # 正しいユーザーかどうか確認
     def correct_user

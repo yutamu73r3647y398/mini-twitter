@@ -1,4 +1,6 @@
 class User < ApplicationRecord
+  # micropostとの関連付け
+  has_many :microposts, dependent: :destroy
   attr_accessor :remember_token
   # コールバックメソッドを利用して、DB保存前に小文字に変換する
   before_save { self.email = self.email.downcase }
@@ -52,6 +54,11 @@ class User < ApplicationRecord
   # ユーザーのログイン情報を破棄する
   def forget
     update_attribute(:remember_digest, nil)
+  end
+  
+  # 試作feedの定義
+  def feed
+    Micropost.where("user_id = ?", id)
   end
   
 end

@@ -1,19 +1,5 @@
-<!--以下の内容はapplication.erbのyieldに代入される-->
-<div class="center jumbotron">
-  <h1>Welcome to サンプルApp！！</h1>
-
-  <h2>
-    This is the home page for the
-    <a href="https://railstutorial.jp/">Ruby on Rails Tutorial</a>
-    sample application.
-  </h2>
-
-  <%= link_to "さいんあっぷする！!", signup_path, class: "btn btn-lg btn-primary" %>
-</div>
-
-<!--image_tagヘルパー-->
-<%= link_to image_tag("rails.svg", alt: "Rails logo", width: "200"),
-                      "https://rubyonrails.org/" %>
-
-<!--猫ちゃんの画像挿入をコメントアウトするには、"#"が必要。そうでないとHTMLがディベロッパーツールに残ってしまう-->
-<!--<%#= image_tag("kitten.jpg", alt: "猫ちゃん", width: "200")%>-->
+<% if logged_in? %>
+  <%= render 'static_pages/home_logged_in' %>
+<% else %>
+  <%= render 'static_pages/home_not_logged_in' %>
+<% end %>

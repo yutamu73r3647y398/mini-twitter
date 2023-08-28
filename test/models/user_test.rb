@@ -92,4 +92,13 @@ class UserTest < ActiveSupport::TestCase
     assert_not @user.authenticated?('')
   end
   
+  # has_many dependent: :destroyのテスト
+  test "associated microposts should be destroyed" do
+    @user.save
+    @user.microposts.create!(content: "Lorem ipsm")
+    assert_difference 'Micropost.count', -1 do
+      @user.destroy
+    end
+  end
+  
 end

@@ -1,7 +1,6 @@
 Rails.application.routes.draw do
   # ルート「/」へのGETリクエストをStaticPagesコントローラのhomeアクションにルーティングさせる
   root "static_pages#home"
-  # contorollerのhome,helpにルーティング、名前付きルーティング
   get  "/help",    to: "static_pages#help"
   get  "/about",   to: "static_pages#about"
   get  "/contact", to: "static_pages#contact"
@@ -9,7 +8,7 @@ Rails.application.routes.draw do
   get  "/login",   to: "sessions#new"
   post  "/login",  to: "sessions#create"
   delete "/logout", to: "sessions#destroy"
-  # userID = 1...に対するルーティング
   resources :users
-  # patch "/edit"   , to: "edit#patch"
+  resources :microposts, only: [:create, :destroy]
+  get '/microposts', to: 'static_pages#home'
 end
